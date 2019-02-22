@@ -23,22 +23,19 @@ pipeline {
             }
         }
 
-
-        stage('Push to docker Registry'){
-            steps{
-
+        stage('Push Docker Image') {
+            when {
+                branch 'master'
+            }
+            steps {
                 script {
-
-                               // This step should not normally be used in your script. Consult the inline help for details.
-                    withDockerRegistry(credentialsId: 'docker_hub_login', url: 'https://registry.hub.docker.com') {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_login') {
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
                     }
                 }
             }
- 
         }
-
         
     }
 }
