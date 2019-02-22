@@ -9,18 +9,20 @@ pipeline {
             }
         }
 
-        stage('Build image') {
-        /* This builds the actual image */
-
-        app = docker.build("zewuk/train-schedule")
+        stage('Build Docker Image') {
+            when {
+                branch 'master'
+            }
+            steps {
+                script {
+                    app = docker.build("zewuk/train-schedule")
+                    app.inside {
+                        sh 'echo $(curl localhost:8080)'
+                    }
+                }
+            }
         }
 
-        stage('Test image') {
-        
-        app.inside {
-            echo "Tests passed"
-        }
-    }
-        
+
     }
 }
