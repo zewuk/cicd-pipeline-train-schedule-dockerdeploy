@@ -30,7 +30,7 @@ pipeline {
                 script {
 
                                // This step should not normally be used in your script. Consult the inline help for details.
-                    withDockerRegistry(credentialsId: 'docker_hub_login', url: 'https://registry.hub.docker.com') {
+                    withDockerRegistry(credentialsId: 'docker_hub_login', url: 'https://registry.hub.docker.io') {
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
                     }
