@@ -41,7 +41,7 @@ pipeline {
         when {
         branch 'master'
         }
-        input ('Do you want to deply to Production?')
+        input 'Do you want to deply to Production?'
         milestone (1)
         withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
             steps {
